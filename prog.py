@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import csv
 import numpy as np
 import matplotlib.pyplot as plt
@@ -181,9 +182,9 @@ def Main():
 					Listadat = []
 				if fila > Markers[contador]+1:
 					Nuevo = Datos(float(row[1]),float(row[3]))
-					A = (float(row[1]),float(row[3])/Firstline.Peso)
+					A = (float(row[1]),float(row[3]))
 					Li.append(A)
-					Nuevo.Magnetizacion = Nuevo.Magnetizacion/Firstline.Peso
+					Nuevo.Magnetizacion = Nuevo.Magnetizacion*0.001415
 					Listadat.append(Nuevo)
 				if (contador + 1) < len(Markers):
 					if fila + 1 == Markers[contador + 1] :
