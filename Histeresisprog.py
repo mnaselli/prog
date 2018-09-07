@@ -16,9 +16,9 @@ class Datos:
 
 def Main():
 	print ("Ingrese nombre del documento con los datos")
-	entrada = input()
+	#entrada = input()
 
-	with open( entrada, newline='') as ifile:
+	with open( "TDF1.VSM", newline='') as ifile:
 		reader = csv.reader(ifile)
 		listaoriginal = [] 
 		listamodificada = []
@@ -39,9 +39,9 @@ def Main():
 				if fila >= 2 :
 					nuevo = Datos(float(row[1]),float(row[3]))
 					listaoriginal = nuevo
-					print (nuevo.Magnetizacion)
+					#print (nuevo.Magnetizacion)
 					nuevo.Magnetizacion = nuevo.Magnetizacion * 0.001415
-					print (nuevo.Magnetizacion)
+					#print (nuevo.Magnetizacion)
 					listamodificada.append(nuevo)
 				fila = fila + 1
 				if fila == 58 :
@@ -53,14 +53,18 @@ def Main():
 
 def Calculardatos(Listadat,Salida,Firstline):
 	posmin = Minimoc(Listadat)
-	Haltan = Pendiente(Listadat[(posmin - 5):posmin])	
+	Haltan = Pendiente(Listadat[len(Listadat)-5:len(Listadat)]) #(posmin - 5):posmin])
+	#print("H alta negativa es" + str(Haltan))	
 	Haltap = Pendiente(Listadat[0:5])
+	#print("H alta positiva es" + str(Haltap))
 	Halta = (Haltan + Haltap ) /2
 	#print(Firstline.Nombre + ":" + str(Haltan) + " " + str(Haltap) + " " + str(Halta) + " " + str(len(Listadat)) + "\n")
 	Correjida = []
 	Correjida = Corregir(Listadat, Halta)
 	Mag0d = Magnecero1(Correjida)
+	print ("la posicion donde el magnetismo es 0 es: " +str(Mag0d))
 	Mag0a = Magnecero2(Correjida[Mag0d:])
+	print ("la posicion donde el magnetismo es 0 es: " +str(Mag0a))
 	Mag0a = Mag0a + Mag0d
 	X01 = Encontrarx0(Correjida,Mag0d)
 	X02 = Encontrarx0(Correjida,Mag0a)
@@ -70,8 +74,8 @@ def Calculardatos(Listadat,Salida,Firstline):
 	Camp0i = Campocero2(Correjida[Camp0d:])
 	Camp0i = Camp0i + Camp0d
 	Magcamp0 = (Tindep(Correjida[Camp0i - 2 : Camp0i + 2]) + Tindep(Correjida[Camp0d - 2 : Camp0d + 2])) / 2
-	Salida.write(Firstline.Nombre + ',' + str(Magcamp0) + ',' + str(X0) + ',' + str(Hpend) + ',' + str(Halta) + '\n')
-	Graficar(Correjida,Firstline)
+	#Salida.write(Firstline.Nombre + ',' + str(Magcamp0) + ',' + str(X0) + ',' + str(Hpend) + ',' + str(Halta) + '\n')
+	#Graficar(Correjida,Firstline)
 	
 def Minimoc(lis):
 	cont = 0
